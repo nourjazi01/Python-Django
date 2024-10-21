@@ -1,0 +1,40 @@
+<h1 style="text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; color: #4A90E2; margin-bottom: 30px;">Conference List</h1>
+
+{% for c in conferences %}
+<div style="border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin-bottom: 20px; background-color: #f9f9f9; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); font-family: 'Segoe UI', Tahoma, sans-serif;">
+    <h2 style="color: #333; font-size: 1.7em; margin-bottom: 10px;">
+        {{ c.title }}
+    </h2>
+    
+    <p style="font-size: 1em; color: #666; line-height: 1.6;"><strong>Description:</strong> {{ c.description }}</p>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+        <div style="flex: 1;">
+            <p style="margin: 5px 0;"><strong>Start Date:</strong> {{ c.start_date|date:"d M Y" }}</p>
+            <p style="margin: 5px 0;"><strong>End Date:</strong> {{ c.end_date|date:"d M Y" }}</p>
+            <p style="margin: 5px 0;"><strong>Location:</strong> {{ c.location }}</p>
+            <p style="margin: 5px 0;"><strong>Price:</strong> <span style="color: #4A90E2;">{{ c.price }} €</span></p>
+            <p style="margin: 5px 0;"><strong>Capacity:</strong> {{ c.capacity }} people</p>
+        </div>
+        
+        <div style="flex: 1; text-align: right;">
+            {% if c.program %}
+            <a href="{{ c.program.url }}" target="_blank" style="background-color: #4A90E2; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download Program
+            </a>
+            {% else %}
+            <p style="color: #888; font-style: italic;">No program available</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0;">
+    
+    <div style="display: flex; justify-content: space-between; color: #888; font-size: 0.9em;">
+        <p><strong>Category:</strong> {{ c.category.name }}</p>
+        <p><strong>Created on:</strong> {{ c.created_at|date:"d M Y H:i" }} | <strong>Updated on:</strong> {{ c.update_at|date:"d M Y H:i" }}</p>
+    </div>
+</div>
+{% empty %}
+<p style="text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; color: #888;">The conference list is empty</p>
+{% endfor %}
